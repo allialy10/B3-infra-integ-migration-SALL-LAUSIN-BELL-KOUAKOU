@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Formulaire avec entête</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f2f2f2;
+    }
+
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    header .user-info {
+      display: flex;
+      align-items: center;
+    }
+
+    header .user-info img {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    header .user-info a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+      margin-right: 10px;
+    }
+
+    header .user-info a:hover {
+      color: #ddd;
+    }
+
+    nav {
+      background-color: #fff;
+      padding: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    nav ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    nav ul li {
+      margin-right: 10px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+      padding: 5px 10px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      background-color: #ddd;
+    }
+
+    form {
+      max-width: 500px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+    }
+
+    form h2 {
+      margin-top: 0;
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      color: #333;
+    }
+
+    form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: none;
+  border-bottom: 2px solid #ddd;
+  background-color: #f9f9f9;
+  border-radius: 3px;
+  box-sizing: border-box;
+  font-size: 16px;
+  color: #333;
+}
+
+form textarea:focus {
+  outline: none;
+  border-color: #555;
+}
+
+    form label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    form input[type="text"],
+    form input[type="email"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: none;
+      border-bottom: 2px solid #ddd;
+      background-color: #f9f9f9;
+      border-radius: 3px;
+      box-sizing: border-box;
+      font-size: 16px;
+      color: #333;
+    }
+
+    form input[type="text"]:focus,
+    form input[type="email"]:focus {
+      outline: none;
+      border-color: #555;
+    }
+
+    form input[type="submit"] {
+      background-color: #333;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+
+    form input[type="submit"]:hover {
+      background-color: #555;
+    }
+    table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tr:hover {
+  background-color: #f5f5f5;
+}
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1> Bienvenue {{ username }}</h1>
+    <div class="user-info">
+      <div>
+        <a href="">Accueil</a>
+        <a href="{% url 'modify' %}">Modifier le profil</a>
+        <a href="{% url 'log_out' %}">Déconnexion</a>
+      </div>
+    </div>
+  </header>
+
+
+  <form method="post">
+    {% csrf_token %}
+    <h2>Envoi de Formulaire </h2>
+    <label for="book">Livre:</label>
+    <input type="text"  name="book" required>
+
+    <label for="Auteur">Auteur:</label>
+    <input type="text"  name="auteur" required>
+
+    <label for="commentaire">Commentaire :</label>
+<textarea name="commentaire" rows="4" cols="50"></textarea>
+
+
+    <input type="submit" value="Envoyer">
+  </form>
+  <h2>Liste des formulaires :</h2>
+  <table>
+    <tr>
+      <th>Livre</th>
+      <th>Auteur</th>
+      <th>Commentaire</th>
+    </tr>
+    {% for item in form_list %}
+      <tr>
+        <td>{{ item.Bookname }}</td>
+        <td>{{ item.Autbook }}</td>
+        <td>{{ item.commentaire }}</td>
+        <td>
+          <form method="post" action="{% url 'delete_row' item.id %}">
+          {% csrf_token %}
+          <input type="submit" value="Supprimer">
+        </form></td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="3">Aucun formulaire enregistré.</td>
+      </tr>
+    {% endfor %}
+  </table>
+  
+</body>
+</html>

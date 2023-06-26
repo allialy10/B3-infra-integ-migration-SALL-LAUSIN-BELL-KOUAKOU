@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <title>Page d'accueil</title>
+    <style>
+      /* style pour le corps de la page */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      /* style pour l'en-tête de la page */
+      header {
+        background-color: #333;
+        color: #fff;
+        padding: 20px;
+      }
+
+      /* style pour la barre de navigation */
+      nav ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        text-align: right;
+      }
+
+      nav li {
+        display: inline-block;
+        margin-left: 20px;
+      }
+
+      nav li:first-child {
+        margin-left: 0;
+      }
+
+      nav a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 18px;
+      }
+
+      nav a:hover {
+        color: #ccc;
+      }
+
+      /* style pour le contenu principal */
+      main {
+        padding: 20px;
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 36px;
+        margin-bottom: 20px;
+      }
+
+      /* style pour le pied de page */
+      footer {
+        background-color: #ccc;
+        color: #333;
+        padding: 20px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="{% url 'connexion' %}">Se connecter</a></li>
+          <li><a href="{% url 'inscription' %}">S'inscrire</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <h1>Bienvenue sur notre site!</h1>
+      <p>Contenu de la page d'accueil ici...</p>
+    </main>
+    <footer>
+      <p>Droit d'auteur © 2023. Tous les droits sont réservés.</p>
+    </footer>
+  </body>
+</html>
